@@ -5,3 +5,4 @@
 *.plan
 *.info
 .idea
+provider.tf

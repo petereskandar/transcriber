@@ -16,9 +16,9 @@ module "wildcard_cert" {
 ####################################
 ## ALB Creation for Public Exposure
 ####################################
-
 module "alb" {
-  source = "terraform-aws-modules/alb/aws"
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 8.0"
 
   name               = "APP-PUBLIC-ALB"
   load_balancer_type = "application"
