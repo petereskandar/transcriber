@@ -1,7 +1,15 @@
 # Transcriber
 
 Transcriber is a Web App used to Transform your Audio Files into Text and sends back the results by email.
-The Web Application is developed using **Angular v16.2**  
+The Web Application is developed using **Angular v16.2**.
+
+To transform audio files, the Web Application is using different **AWS Services** as listed below :
+- **Cognito**        : for Authentication/Authorization
+- **S3**             : to upload the audio files to a dedicated S3 Bucket
+- **Lambda**         : will be triggered everytime a new file is uploaded to the S3 Bucket and is used to start a **Step Function**
+- **Step Functions** : used to manage the transcription life-cycle of a specific audion file
+- **Transcribe**     : transform audio to text
+- **SES**            : send transcription results via mail  
 
 The below Diagram describes the App Infrastructure :
 
