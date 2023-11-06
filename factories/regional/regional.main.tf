@@ -10,7 +10,21 @@ data "aws_region" "current" {
 }
 
 ##############################
-## 1 - VPC Creation Module
+## 1- Cognito User Pool &
+##    Identity Pool
+##############################
+
+module "app-cognito" {
+  source = "./cognito"
+  providers = {
+    aws = aws.dst
+  }
+  tags = var.tags
+}
+
+
+##############################
+## 2 - VPC Creation Module
 ##############################
 
 module "app-vpc" {
@@ -23,8 +37,8 @@ module "app-vpc" {
 }
 
 ##############################
-## 2- ECR Repo Creation
-## and Sample Docket Image Push
+## 3- ECR Repo Creation
+##    and Sample Docket Image Push
 ##############################
 
 module "app-ecr" {
@@ -36,7 +50,7 @@ module "app-ecr" {
 }
 
 ##############################################################
-## 3- ECS Cluster & Resources
+## 4- ECS Cluster & Resources
 ##    Creation Module (ALB, Service, Task Definition and Task)
 ##############################################################
 

@@ -1,0 +1,43 @@
+<div class="container-lg shadow-lg p-3 mb-5 rounded">
+    <form [formGroup]="userDataFormGroup">
+      <mat-horizontal-stepper linear #stepper>
+        <mat-step [stepControl]="$any(userDataFormGroup.get('STEP_1'))">
+          <form [formGroup]="$any(userDataFormGroup.get('STEP_1'))">
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" placeholder="name@example.com" class="form-control" formControlName="emailCtrl" required>
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div>
+              <button class="btn btn-secondary active" mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="$any(userDataFormGroup.get('STEP_2'))">
+          <form [formGroup]="$any(userDataFormGroup.get('STEP_2'))">
+            <ng-template matStepLabel>Upload your file</ng-template>
+              <div class="form-group">
+                  <app-file-upload formControlName="fileCtrl" ngDefaultControl></app-file-upload>
+              </div>
+              <div class="invalid-feedback" style="display: block; font-size: 12px;">
+                <ng-container *ngIf="hasError('STEP_2.fileCtrl', 'fileSizeValidator')">Max File Size is 10 MB</ng-container>
+                <ng-container *ngIf="hasError('STEP_2.fileCtrl', 'requiredFileType')">Only MP3 & MP4 are supported</ng-container>
+              </div>
+            <div>
+              <button style="margin-right: 10px;" class="btn btn-secondary active ml-10" mat-button matStepperPrevious>Back</button>
+              <button class="btn btn-secondary active" mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <h4 style="color: white;">You will recieve an email with the content of the file you're uploading as soon as it's ready.</h4>
+          <button class="btn btn-secondary active" (click)="submitRequest()">Submit Request</button>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </form>
+  </div>  
+
+  <ngx-spinner size="medium" color="#fff" type="ball-climbing-dot" [fullScreen]="true"></ngx-spinner>
+

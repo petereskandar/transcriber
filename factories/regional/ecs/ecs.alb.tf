@@ -7,8 +7,8 @@ data "aws_route53_zone" "public-zone" {
 }
 
 module "wildcard_cert" {
-  source = "terraform-aws-modules/acm/aws"
-
+  source      = "terraform-aws-modules/acm/aws"
+  version     = "~> 4.0"
   domain_name = "*.${var.domain_name}"
   zone_id     = data.aws_route53_zone.public-zone.id
 }
