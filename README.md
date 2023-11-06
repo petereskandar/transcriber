@@ -35,7 +35,7 @@ here is a list of the resources that will be created by each sub-module :
     - **S3 & DynamoDB** Gateway Endpoints with their relative routes in both **Public & Private** Route Tables
 <!-- blank line -->    
 - **ECR Sub-Module** :
-    - A ** Private ECR Repository** named ***web-app-repo***
+    - A **Private ECR Repository** named ***web-app-repo***
     - A Repo **Lifecycle rule** to keep the last tagged 30 images
     - **Docker** Build, Tag and Push for the **Transcriber** Web App that you can find [here](webApp)
 <!-- blank line -->    
