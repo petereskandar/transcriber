@@ -1,10 +1,15 @@
-# Building a Secure, Mlti-Regional & Highly Available Web Application Infrastructure using Terraform
+# Transcriber
 
-This Terraform Project is used to Setup a Multi-Region Web APP deployed using AWS ECS Fargate and exposed publicly using an Application Load Balancer.
+Transcriber is a Web App used to Transform your Audio Files into Text and sends back the results by email.
+The Web Application is developed using **Angular v16.2**.
 
-The Whole Infrastructure will be deployed to a **Primary Region** and a **Secondary Region** of your choice, based on the Terraform Providers you will setup to run the project.
-
-The **DR Strategy** is based on **Route53 Health Checks** which will swtich to the **Secondary Region** in case of a **Primary Region** Failure.
+To transform audio files, the Web Application is using different **AWS Services** as listed below :
+- **Cognito**        : for Authentication/Authorization
+- **S3**             : to upload the audio files to a dedicated S3 Bucket
+- **Lambda**         : will be triggered everytime a new file is uploaded to the S3 Bucket and is used to start a **Step Function**
+- **Step Functions** : used to manage the transcription life-cycle of a specific audion file
+- **Transcribe**     : transform audio to text
+- **SES**            : send transcription results via mail  
 
 The below Diagram describes the App Infrastructure :
 
@@ -32,7 +37,7 @@ here is a list of the resources that will be created by each sub-module :
 - **ECR Sub-Module** :
     - A ** Private ECR Repository** named ***web-app-repo***
     - A Repo **Lifecycle rule** to keep the last tagged 30 images
-    - **Docker** Build, Tag and Push for a simple html page that you can find [here](factories/regional/ecr/webapp)
+    - **Docker** Build, Tag and Push for the **Transcriber** Web App that you can find [here](webApp)
 <!-- blank line -->    
 - **ECS Sub-Module** :     
     - An **ECS Fargate Cluster** named ***APP-ECS-FARGATE***
