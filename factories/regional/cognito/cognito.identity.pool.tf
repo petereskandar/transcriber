@@ -41,7 +41,7 @@ resource "aws_iam_role" "cognito_authenticated_role" {
 data "aws_iam_policy_document" "assume_cognito_authenticated_role_policy" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    actions = ["sts:AssumeRoleWithWebIdentity"]
     principals {
       type = "Federated"
       identifiers = [
