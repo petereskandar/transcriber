@@ -46,7 +46,10 @@ module "app-ecr" {
   providers = {
     aws = aws.dst
   }
-  tags = var.tags
+  identity_pool_id      = module.app-cognito.identity_pool_id
+  user_pool_id          = module.app-cognito.user_pool_id
+  user_pool_webClientId = module.app-cognito.user_pool_webClientId
+  tags                  = var.tags
 }
 
 ##############################################################

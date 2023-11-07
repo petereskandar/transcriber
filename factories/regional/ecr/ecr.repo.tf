@@ -27,7 +27,6 @@ module "ecr" {
   })
 
   repository_force_delete = true
-
   tags = var.tags
 }
 
@@ -45,7 +44,7 @@ resource "null_resource" "docker_packaging" {
     interpreter = ["PowerShell", "-Command"]
     command     = <<EOF
         docker login --username AWS -p $(aws ecr get-login-password --region ${data.aws_region.current.name} ) ${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com      
-        docker build --build-arg REGION=${data.aws_region.current.name} -t web-app-repo-${data.aws_region.current.name}  ././webApp 
+        docker build --build-arg REGION=${data.aws_region.current.name} --build-arg userPoolId=${var.user_pool_id} --build-arg userPoolWebClientId=${var.user_pool_webClientId} --build-arg IDENTITY_POOL_ID=${var.identity_pool_id} -t web-app-repo-${data.aws_region.current.name}  --no-cache  ././webApp 
         docker tag web-app-repo-${data.aws_region.current.name}:latest ${module.ecr.repository_url}:latest 
 	      docker push ${module.ecr.repository_url}:latest
 	    EOF

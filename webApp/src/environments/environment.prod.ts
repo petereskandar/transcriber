@@ -1,11 +1,10 @@
 export const environment = {
-  REGION: 'eu-west-3',
+  REGION: '_REGION',
   cognito: {
-    userPoolId: 'eu-west-3_pNetY4Lfm',
-    userPoolWebClientId: 'ii0ffm1og2d3qa7osvp8me9hn'
+    userPoolId: '_userPoolId',
+    userPoolWebClientId: '_userPoolWebClientId'
   },
-  IDENTITY_POOL_ID: "eu-west-3:fd5f34c8-610d-4dee-89fb-f864398cd55e",
-  ROLEARN: 'arn:aws:iam::250950161175:role/Cognito_demoIdPoolUnauth_Role',
+  IDENTITY_POOL_ID: "_IDENTITY_POOL_ID",
   BUCKET: 'aws-devops-peter-eskandar',
   production: true
 };

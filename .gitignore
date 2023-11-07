@@ -6,3 +6,4 @@
 *.info
 .idea
 provider.tf
+.infracost/*

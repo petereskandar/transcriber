@@ -4,11 +4,26 @@ WORKDIR /dist/src/app
 # Copy files to virtual directory
 # COPY package.json package-lock.json ./
 # Run command in Virtual directory
+
+#Runtime Arguments
+ARG REGION
+ARG userPoolId
+ARG userPoolWebClientId
+ARG IDENTITY_POOL_ID
+
 RUN npm cache clean --force
 # Copy files from local machine to virtual directory in docker image
 COPY ./ .
+
+#update prod environment file
+RUN sed -i 's/_REGION/'"$REGION"'/g' ./src/environments/environment.prod.ts
+RUN sed -i 's/_userPoolId/'"$userPoolId"'/g' ./src/environments/environment.prod.ts
+RUN sed -i 's/_userPoolWebClientId/'"$userPoolWebClientId"'/g' ./src/environments/environment.prod.ts
+RUN sed -i 's/_IDENTITY_POOL_ID/'"$IDENTITY_POOL_ID"'/g' ./src/environments/environment.prod.ts
+RUN cat ./src/environments/environment.prod.ts
+
 RUN npm install
-RUN npm run build 
+RUN npm run build -- --c production
 
 FROM nginx:latest AS ngi
 COPY --from=build /dist/src/app/dist/audio-transcriber /usr/share/nginx/html
@@ -16,8 +31,6 @@ COPY --from=build /dist/src/app/dist/audio-transcriber /usr/share/nginx/html
 #COPY ./index.html /usr/share/nginx/html/index.html
 #WORKDIR /usr/share/nginx/html
 EXPOSE 80
-#ARG REGION
-#ENV REGION=${REGION}
 #RUN echo "Deployed on Region : ${REGION}" >> /usr/share/nginx/html/index.html
 #RUN echo "<br>" >> /usr/share/nginx/html/index.html
 #RUN date +"%A, %b %d, %Y %H:%M:%S" >> /usr/share/nginx/html/index.html
