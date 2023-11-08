@@ -27,7 +27,7 @@ module "ecr" {
   })
 
   repository_force_delete = true
-  tags = var.tags
+  tags                    = var.tags
 }
 
 # Equivalent of aws ecr get-login

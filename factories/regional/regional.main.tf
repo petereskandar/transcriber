@@ -10,7 +10,20 @@ data "aws_region" "current" {
 }
 
 ##############################
-## 1- Cognito User Pool &
+## 1- S3 Bucket Creation
+##    Lambda
+##############################
+
+module "app-s3" {
+  source = "./s3"
+  providers = {
+    aws = aws.dst
+  }
+  tags = var.tags
+}
+
+##############################
+## 2- Cognito User Pool &
 ##    Identity Pool
 ##############################
 
@@ -24,7 +37,7 @@ module "app-cognito" {
 
 
 ##############################
-## 2 - VPC Creation Module
+## 3 - VPC Creation Module
 ##############################
 
 module "app-vpc" {
@@ -37,7 +50,7 @@ module "app-vpc" {
 }
 
 ##############################
-## 3- ECR Repo Creation
+## 4- ECR Repo Creation
 ##    and Sample Docket Image Push
 ##############################
 
@@ -53,7 +66,7 @@ module "app-ecr" {
 }
 
 ##############################################################
-## 4- ECS Cluster & Resources
+## 5- ECS Cluster & Resources
 ##    Creation Module (ALB, Service, Task Definition and Task)
 ##############################################################
 
