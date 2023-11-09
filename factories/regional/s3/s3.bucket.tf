@@ -4,10 +4,12 @@
 
 resource "random_string" "random" {
   length = 5
+  numeric = false
+  special = false
 }
 
 resource "aws_s3_bucket" "audio_transcriber_bucket" {
-  bucket = "audio-transcriber-bucket-${random_string.random.result}"
+  bucket = lower("audio-transcriber-bucket-${random_string.random.result}")
   tags   = var.tags
 }
 

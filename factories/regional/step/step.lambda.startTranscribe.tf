@@ -3,7 +3,7 @@
 ####################################
 
 // Trigger Lambda on all Object Create related Events"
-resource "aws_s3_bucket_notification" "audio_transcriber_bucket_notifications" {
+/*resource "aws_s3_bucket_notification" "audio_transcriber_bucket_notifications" {
   bucket = aws_s3_bucket.audio_transcriber_bucket.id
   lambda_function {
     id                  = "Trigger Lambda on Audio Upload"
@@ -38,17 +38,8 @@ resource "aws_lambda_function" "transcriber_lambda_starter" {
   timeout       = 600
   environment {
     variables = {
-      STATEMACHINEARN = "arn:aws:states:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:stateMachine:AudioTranscribeStateMachine"
+      STATEMACHINEARN = "arn:aws:states:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:stateMachine:TranscribeStateMachine"
     }
-  }
-}
-
-// create Lambda CloudWatch Log Group
-resource "aws_cloudwatch_log_group" "transcriber_lambda_starter_log_group" {
-  name              = "/aws/lambda/${aws_lambda_function.transcriber_lambda_starter.function_name}"
-  retention_in_days = 7
-  lifecycle {
-    prevent_destroy = false
   }
 }
 
@@ -100,4 +91,4 @@ resource "aws_iam_role_policy" "transcriber_lambda_starter_code_iam_policy_step_
   name   = "TranscriberLambdaStarterPolicy"
   role   = aws_iam_role.transcriber_lambda_starter_code_iam.id
   policy = data.aws_iam_policy_document.transcriber_lambda_starter_code_iam_step_policy.json
-}
+}*/

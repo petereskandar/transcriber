@@ -85,3 +85,17 @@ module "app-ecs" {
   public-subnets     = module.app-vpc.public-subnets  # Public Subnets IDs
   private-subnets    = module.app-vpc.private-subnets # Private Subnets IDs
 }
+
+
+##############################
+## 6- Audio Transcription
+##    State Machine
+##############################
+
+module "app-step" {
+  source = "./step"
+  providers = {
+    aws = aws.dst
+  }
+  tags = var.tags
+}
