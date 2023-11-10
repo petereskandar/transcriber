@@ -5,6 +5,6 @@ export const environment = {
     userPoolWebClientId: '_userPoolWebClientId'
   },
   IDENTITY_POOL_ID: "_IDENTITY_POOL_ID",
-  BUCKET: 'aws-devops-peter-eskandar',
+  BUCKET: '_s3_bucket_name',
   production: true
 };

@@ -6,16 +6,18 @@ resource "aws_sfn_state_machine" "sfn_transcribe_state_machine" {
   name     = "AudioTranscribeStateMachine"
   role_arn = aws_iam_role.sfn_transcribe_state_machine_role.arn
 
+  // "arn:aws:lambda:eu-west-3:250950161175:function:transcribeS3ObjOnUpload:$LATEST",
+  // "arn:aws:lambda:eu-west-3:250950161175:function:deleteTranscriptionJob:$LATEST",
   definition = <<EOF
 {
-  "Comment": "Transcribe an object uploded to S£",
+  "Comment": "Transcribe an object uploded to S3",
   "StartAt": "transcribe",
   "States": {
     "transcribe": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:eu-west-3:250950161175:function:transcribeS3ObjOnUpload:$LATEST",
+        "FunctionName": "${aws_lambda_function.transcriber_job_starter.arn}",
         "Payload": {
           "Input.$": "$"
         }
@@ -58,7 +60,7 @@ resource "aws_sfn_state_machine" "sfn_transcribe_state_machine" {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:eu-west-3:250950161175:function:deleteTranscriptionJob:$LATEST",
+        "FunctionName": "${aws_lambda_function.transcriber_email_sender.arn}", 
         "Payload": {
           "Input.$": "$"
         }

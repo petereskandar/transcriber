@@ -5,7 +5,7 @@ var assert = require('assert');
 exports.handler = async (event) => {
     
     // required params
-    var region = 'eu-west-3';
+    var region = process.env.REGION;
     var payload = event['Input']['Payload']
     var transcriptFileUri = payload['TranscriptFileUri'];
     var transcriptionJobName = payload['TranscriptionJobName'];

@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 
 exports.handler = async (event) => {
-    var region = 'eu-west-3';
+    var region = process.env.REGION;
     var s3bucket = event['Input']['Bucket'];
     var s3object = event['Input']['Key'];
 
@@ -15,7 +15,7 @@ exports.handler = async (event) => {
         LanguageOptions: ["en-US", "es-US", "fr-FR", "it-IT"],
         MediaFormat: s3object.split('.')[1].toLowerCase(),
         Media:{
-            MediaFileUri : `https://s3-eu-west-3.amazonaws.com/${s3bucket}/${s3object}`
+            MediaFileUri : `https://s3-${region}.amazonaws.com/${s3bucket}/${s3object}`
         }
     }
     const response = await new Promise((resolve, reject) => {

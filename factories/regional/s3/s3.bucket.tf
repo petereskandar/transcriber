@@ -3,7 +3,7 @@
 ####################################
 
 resource "random_string" "random" {
-  length = 5
+  length  = 5
   numeric = false
   special = false
 }

@@ -62,6 +62,7 @@ module "app-ecr" {
   identity_pool_id      = module.app-cognito.identity_pool_id
   user_pool_id          = module.app-cognito.user_pool_id
   user_pool_webClientId = module.app-cognito.user_pool_webClientId
+  s3_bucket_name        = module.app-s3.s3_bucket_name
   tags                  = var.tags
 }
 

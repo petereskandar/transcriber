@@ -19,17 +19,7 @@ export class UploadDocumentComponent {
     private uploadService: UploadDocumentService,
     private router: Router,
     private userService: UserAuthService,
-    private spinnerService: NgxSpinnerService) {
-
-      /*this.userDataFormGroup =  this._formBuilder.group({
-        STEP_1: this._formBuilder.group({ // set default value to logged user email
-          emailCtrl: [this.userService.loggedUser.attributes.email , [Validators.required, Validators.email]]
-        }),
-        STEP_2: this._formBuilder.group({
-          fileCtrl: ['', [Validators.required, fileSizeValidator(), requiredFileType('mp3', 'mp4')]]
-        }),
-      });*/
-  }
+    private spinnerService: NgxSpinnerService) {}
   
   ngOnInit() {
     this.initializeForm();

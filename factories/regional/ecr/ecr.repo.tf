@@ -37,14 +37,11 @@ data "aws_ecr_authorization_token" "ecr_token" {}
 // Build the sample WebApp
 // tag and push to the repo
 resource "null_resource" "docker_packaging" {
-  # aws ecr get-login-password --region ${data.aws_region.current.name} | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com 
-  # echo ${data.aws_ecr_authorization_token.ecr_token.password} | docker login —username ${data.aws_ecr_authorization_token.ecr_token.user_name} —password-stdin ${data.aws_ecr_authorization_token.ecr_token.proxy_endpoint}
-  # docker login --username AWS -p $(aws ecr get-login-password --region ${data.aws_region.current.name} ) ${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com
   provisioner "local-exec" {
     interpreter = ["PowerShell", "-Command"]
     command     = <<EOF
         docker login --username AWS -p $(aws ecr get-login-password --region ${data.aws_region.current.name} ) ${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com      
-        docker build --build-arg REGION=${data.aws_region.current.name} --build-arg userPoolId=${var.user_pool_id} --build-arg userPoolWebClientId=${var.user_pool_webClientId} --build-arg IDENTITY_POOL_ID=${var.identity_pool_id} -t web-app-repo-${data.aws_region.current.name}  --no-cache  ././webApp 
+        docker build --build-arg REGION=${data.aws_region.current.name} --build-arg userPoolId=${var.user_pool_id} --build-arg userPoolWebClientId=${var.user_pool_webClientId} --build-arg IDENTITY_POOL_ID=${var.identity_pool_id} --build-arg s3_bucket_name=${var.s3_bucket_name} -t web-app-repo-${data.aws_region.current.name}  --no-cache  ././angular 
         docker tag web-app-repo-${data.aws_region.current.name}:latest ${module.ecr.repository_url}:latest 
 	      docker push ${module.ecr.repository_url}:latest
 	    EOF
