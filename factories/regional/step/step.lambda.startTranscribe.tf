@@ -20,6 +20,7 @@ resource "aws_lambda_function" "transcriber_job_starter" {
       REGION = data.aws_region.current.name
     }
   }
+  tags = var.tags
 }
 
 data "archive_file" "transcriber_job_starter_code" {

@@ -5,7 +5,7 @@
 resource "aws_sfn_state_machine" "sfn_transcribe_state_machine" {
   name     = "AudioTranscribeStateMachine"
   role_arn = aws_iam_role.sfn_transcribe_state_machine_role.arn
-
+  tags     = var.tags
   // "arn:aws:lambda:eu-west-3:250950161175:function:transcribeS3ObjOnUpload:$LATEST",
   // "arn:aws:lambda:eu-west-3:250950161175:function:deleteTranscriptionJob:$LATEST",
   definition = <<EOF

@@ -23,3 +23,8 @@ variable "primary_region" {
   type        = bool
   description = "Checks Wether the region is the primary or the secondary one"
 }
+
+variable "sender_email" {
+  type        = string
+  description = "Sender Email Address, used by SES to deliver transcription results"
+}

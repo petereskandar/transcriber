@@ -19,9 +19,10 @@ resource "aws_lambda_function" "transcriber_email_sender" {
   environment {
     variables = {
       REGION       = data.aws_region.current.name,
-      SENDER_EMAIL = "info@petereskandar.eu"
+      SENDER_EMAIL = var.sender_email
     }
   }
+  tags = var.tags
 }
 
 data "archive_file" "transcriber_email_sender_code" {

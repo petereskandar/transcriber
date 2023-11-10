@@ -98,5 +98,6 @@ module "app-step" {
   providers = {
     aws = aws.dst
   }
-  tags = var.tags
+  sender_email = var.sender_email
+  tags         = var.tags
 }
