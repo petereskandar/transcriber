@@ -13,7 +13,7 @@ To transform audio files, the Web Application is using different **AWS Services*
 
 The below Diagram describes the App Infrastructure :
 
-![plot](./img/design-v1.jpg)
+![plot](./img/design-gif.gif)
 
 ## What to excpect by deploying this terraform project ?
 This project supports creating resources through individual sub-modules, it's mainly based on two main modules **global** and **regional** which you can find under the **factories** directory.
