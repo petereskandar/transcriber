@@ -1,7 +1,12 @@
 # Transcriber
 
-Transcriber is a Web App used to Transform your Audio Files into Text and sends back the results by email.
-The Web Application is developed using **Angular v16.2**.
+Transcriber is a **Web based Application** used to Transform your Audio Files into Text and sends back the results by email.
+
+### Here's how it works :
+  - **Upload Your Audio:** Easily upload your audio files directly to an S3 Bucket using a Web Application built with Angular Framework v16.2 :globo_con_meridiani:. The App is also integrated with Cognito for Authentication/Authorization purposes.
+  - **Automatic Transcription:** Once uploaded, a Step Function is triggered to initiate the transcription process as shown in the below diagram.
+  - **Results Delivered By Email:** After the Transcription process is completed, results will be delivered to your email using AWS SES.
+
 
 To transform audio files, the Web Application is using different **AWS Services** as listed below :
 - **Cognito**        : for Authentication/Authorization
@@ -50,35 +55,28 @@ here is a list of the resources that will be created by each sub-module :
     - **Route53 Health Check** target the **FQDN** of the **Application Load Balancer** on port **443**
     - **Route53 Records** with **Failover** Routing Policy
     - **Failover Record Type** will be decided based on a flag named ***primary_region*** if true a ***Primary*** record will be created, otherwise a ***Secondary** one will be created
+ <!-- blank line -->    
+- **Cognito Sub-Module** :
+    - **Cognito User Pool**
+    - **Cognito Identity Pool**
+    - **Cognito Identity Pool Authenticated IAM Role** ***"The IAM Role to be associated to Authenticated Users"***
+<!-- blank line -->    
+- **S3 Sub-Module** :
+    - **S3 Bucket**
+    - **S3 Bucket** Policy
+    - **S3 Lifecycle Rule** to delete Audio Files after 1 day
+    - **A Lambda Function** that will be triggered each time a new file is uploaded to the S3 Bucket and needed to start the execution of the **Step Function**
+<!-- blank line -->    
+- **Step Sub-Module** :
+    - Creates a **Step Function** with three different **Lambda Functions** needed to manage the **Transcription lifecycle** of the uploaded Audio File (for example: AWS Transcribe Job Creation/Deletion or Sending Transcription results via Email)
+    - **A IAM Role** for each **Lambda Function** needed to perform a specific action
 
 <!-- blank line -->
 ## Usage 
 
 To be able to use this project, you will need the following : 
 - A **Public Domain Name** registered or imported in **Route53**
-- **Terraform Providers** referring to two different AWS Regions in your AWS Account with the necesary permissions to create all the resources listed [here](#what-to-excpect-by-applying-this-terraform-project) 
-
-  ### Setup Providers :
-    Under the main directory, you need to create a new ***provider.tf*** file with two different providers referring to two different AWS Regions as shown below : 
-  ```
-    provider "aws" {
-    alias      = "primary-region"
-    region     = "ADD YOUR PRIMARY REGION HERE"
-    
-    skip_metadata_api_check     = false
-    skip_region_validation      = false
-    skip_credentials_validation = false
-    }
-
-    provider "aws" {
-    alias      = "secondary-region"
-    region     = "ADD YOUR PRIMARY REGION HERE"
-
-    skip_metadata_api_check     = false
-    skip_region_validation      = false
-    skip_credentials_validation = false
-    }
-  ``` 
+- A **Verified SES Email Address** that will be used to send Transcription results
 
 <!-- blank line -->
 ## Inputs 
@@ -91,17 +89,6 @@ The following inputs should be added to the [metadata.yml](metadata.yml)
 | domain_name_suffix 	| TRUE          	| webapp           	| Needed for DNS records creation to expose the App publicly,for example : webapp.petereskandar.eu               	|
 | vpc_cidr           	| TRUE          	| 10.0.0.0/16      	| The VPC Cidr is required to setup the Networking part in each region "VPC, Public Subnets and Private Subnets" 	|
 | sender_email           	| TRUE          	| info@petereskandar.eu      	| A Verified SES Email Address that will be used by the application to send transcription results 	|
-
-
-
-<!-- blank line -->
-## Future Improvements
-- **Resource Naming :** 
-    - At the moment most of the created resources has fixed names and need to be externalized using **T*erraform Variables***
-- **Web Application & Infrastructure :** 
-    - This project doesn't create any ***DynamoDB Tabls*** or ***S3 Buckets***, they are there in the diagram for demonstration purposes 
-    - The Deployed Application on both regions is a simple ***index.html*** with a label that indicates the region of deployment "for Failover testing purposes" and I'm working on introducing a more complex use-case that involves ***DynamoDB Global Tables*** or ***Multiple S3 Buckets*** in two different AWS Regions with **Cognito** for Auth/Authz.
-
 
 
 <!-- blank line --> 
