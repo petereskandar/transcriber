@@ -70,7 +70,7 @@ here is a list of the resources that will be created by each sub-module :
     - **A IAM Role** for each **Lambda Function** with the permissions needed to perform a specific action
 
 <!-- blank line -->
-## Usage 
+## Prerequisites 
 
 To be able to use this project, you will need the following : 
 - A **Public Domain Name** registered or imported in **Route53**
@@ -87,6 +87,28 @@ The following inputs should be added to the [metadata.yml](metadata.yml)
 | domain_name_suffix 	| TRUE          	| webapp           	| Needed for DNS records creation to expose the App publicly,for example : webapp.petereskandar.eu               	|
 | vpc_cidr           	| TRUE          	| 10.0.0.0/16      	| The VPC Cidr is required to setup the Networking part in each region "VPC, Public Subnets and Private Subnets" 	|
 | sender_email           	| TRUE          	| info@petereskandar.eu      	| A Verified SES Email Address that will be used by the application to send transcription results 	|
+
+<!-- blank line --> 
+## Installation
+  1. Clone the repo
+     ```
+     git clone https://github.com/petereskandar/transcriber.git
+     ```
+  2. Terraform Plan
+     ```
+     terraform plan
+     ```
+  3. Terraform Apply
+     ```
+     terraform apply
+     ```
+  4. Visit `"https://${domain_name_prefix}.${domain_name}"` based on your provided inputs
+  5. The Following Web Page will be shown :
+     <!-- blank line --> 
+     ![image](https://github.com/petereskandar/transcriber/assets/24432011/dc49de66-7dd7-4f87-b5bc-bcab7a1b6f11)
+  6. **Sign Up** and then **Sign In** to be able to upload your Audio Files "only .mp3 and .mp4 are the accepted formats"
+  7. Transcription results will be delivered by default to the email address you used during the sign up process otherwise you can insert a different email address during the upload of the Audio File
+ 
 
 
 <!-- blank line --> 
