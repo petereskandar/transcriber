@@ -3,7 +3,7 @@
 Transcriber is a **Web based Application** used to Transform your Audio Files into Text and sends back the results by email.
 
 ### Here's how it works :
-  - **Upload Your Audio:** Easily upload your audio files directly to an S3 Bucket using a Web Application built with Angular Framework v16.2 :globo_con_meridiani:. The App is also integrated with Cognito for Authentication/Authorization purposes.
+  - **Upload Your Audio:** Easily upload your audio files directly to an S3 Bucket using a Web Application built with Angular Framework v16.2. The App is also integrated with Cognito for Authentication/Authorization purposes.
   - **Automatic Transcription:** Once uploaded, a Step Function is triggered to initiate the transcription process as shown in the below diagram.
   - **Results Delivered By Email:** After the Transcription process is completed, results will be delivered to your email using AWS SES.
 
