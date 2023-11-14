@@ -1,17 +1,17 @@
 # Transcriber
 
-Transcriber is a **Web based Application** used to Transform your Audio Files into Text and sends back the results by email.
+Transcriber is a Simple Application that can be used to Transform your Audio Files into Text and sends back the results by email.
 
 ### Here's how it works :
   - **Upload Your Audio:** Easily upload your audio files directly to an S3 Bucket using a Web Application built with Angular Framework v16.2. The App is also integrated with Cognito for Authentication/Authorization purposes.
   - **Automatic Transcription:** Once uploaded, a Step Function is triggered to initiate the transcription process as shown in the below diagram.
-  - **Results Delivered By Email:** After the Transcription process is completed, results will be delivered to your email using AWS SES.
+  - **Results Delivered By Email:** After the Transcription process is completed, results will be delivered to your email.
 
 
-To transform audio files, the Web Application is using different **AWS Services** as listed below :
+To transform audio files, the Application is using different **AWS Services** as listed below :
 - **Cognito**        : for Authentication/Authorization
 - **S3**             : to upload the audio files to a dedicated S3 Bucket
-- **Lambda**         : will be triggered everytime a new file is uploaded to the S3 Bucket and is used to start a **Step Function**
+- **Lambda**         : will be triggered everytime a new file is uploaded to the S3 Bucket and is used to start the execution of a **Step Function**
 - **Step Functions** : used to manage the transcription life-cycle of a specific audion file
 - **Transcribe**     : transform audio to text
 - **SES**            : send transcription results via mail  
@@ -52,14 +52,12 @@ here is a list of the resources that will be created by each sub-module :
     - An **Internet Facing ALB** for Service Public Exposure
     - A **Wild Card ACM Certificate** based on the provided **Public Domain Name** for **TLS Termination** [See Inputs](#inputs)
     - **DNS Validation** for the created Certificate
-    - **Route53 Health Check** target the **FQDN** of the **Application Load Balancer** on port **443**
-    - **Route53 Records** with **Failover** Routing Policy
-    - **Failover Record Type** will be decided based on a flag named ***primary_region*** if true a ***Primary*** record will be created, otherwise a ***Secondary** one will be created
+    - **Route53 Records** to route traffic to the Application Load Balancer
  <!-- blank line -->    
 - **Cognito Sub-Module** :
-    - **Cognito User Pool**
-    - **Cognito Identity Pool**
-    - **Cognito Identity Pool Authenticated IAM Role** ***"The IAM Role to be associated to Authenticated Users"***
+    - Cognito **User Pool**
+    - Cognito **Identity Pool**
+    - Cognito **Identity Pool Authenticated IAM Role** ***"The IAM Role to be associated to Authenticated Users"***
 <!-- blank line -->    
 - **S3 Sub-Module** :
     - **S3 Bucket**
@@ -68,8 +66,8 @@ here is a list of the resources that will be created by each sub-module :
     - **A Lambda Function** that will be triggered each time a new file is uploaded to the S3 Bucket and needed to start the execution of the **Step Function**
 <!-- blank line -->    
 - **Step Sub-Module** :
-    - Creates a **Step Function** with three different **Lambda Functions** needed to manage the **Transcription lifecycle** of the uploaded Audio File (for example: AWS Transcribe Job Creation/Deletion or Sending Transcription results via Email)
-    - **A IAM Role** for each **Lambda Function** needed to perform a specific action
+    - Creates a **Step Function** with three different **Lambda Functions** needed to manage the **Transcription life-cycle** of the uploaded Audio File (for example: AWS Transcribe Job Creation/Deletion or Sending Transcription results via Email)
+    - **A IAM Role** for each **Lambda Function** with the permissions needed to perform a specific action
 
 <!-- blank line -->
 ## Usage 
