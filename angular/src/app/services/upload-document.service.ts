@@ -19,7 +19,6 @@ export class UploadDocumentService {
         Key:  'Transcribe/'+ file['name'],
         Body: file,
         Bucket: environment.BUCKET,
-        ACL: 'public-read',
         ContentType: file['type'],
         Tagging: `Email=${userEmail}`
       }, options, (err, res) => {

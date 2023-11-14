@@ -19,7 +19,9 @@ module "app-s3" {
   providers = {
     aws = aws.dst
   }
-  tags = var.tags
+  tags               = var.tags
+  domain_name        = lower(var.domain_name)        # Public domain name needed for ACM & Public Exposure
+  domain_name_prefix = lower(var.domain_name_prefix) # domain prefix for public app exposure : webapp.petereskandar.eu
 }
 
 ##############################
@@ -77,8 +79,8 @@ module "app-ecs" {
     aws = aws.dst
   }
   tags               = var.tags
-  domain_name        = var.domain_name               # Public domain name needed for ACM & Public Exposure
-  domain_name_prefix = var.domain_name_prefix        # domain prefix for public app exposure : webapp.petereskandar.eu
+  domain_name        = lower(var.domain_name)        # Public domain name needed for ACM & Public Exposure
+  domain_name_prefix = lower(var.domain_name_prefix) # domain prefix for public app exposure : webapp.petereskandar.eu
   ecr_repository_url = module.app-ecr.repository_url # ECR repo url to pull the sample webapp Image
   primary_region     = var.primary_region
   app-vpc-id         = module.app-vpc.app-vpc-id      # VPC ID

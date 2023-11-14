@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "cognito_authenticated_role_addon" {
   statement {
     sid = "AllowS3PutObject"
     actions = [
-      "s3:PutObject"
+      "s3:PutObject*"
     ]
     resources = ["*"]
   }

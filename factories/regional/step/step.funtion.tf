@@ -33,7 +33,7 @@ resource "aws_sfn_state_machine" "sfn_transcribe_state_machine" {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:eu-west-3:250950161175:function:lambdaTranscribeStatusChecker:$LATEST",
+        "FunctionName": "${aws_lambda_function.transcriber_job_checker.arn}",
         "Payload": {
           "Input.$": "$"
         }

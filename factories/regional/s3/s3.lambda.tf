@@ -91,7 +91,7 @@ data "aws_iam_policy_document" "transcriber_lambda_starter_code_iam_step_policy"
       "states:StartExecution"
     ]
     resources = [
-      "arn:aws:states:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:stateMachine:TranscribeStateMachine"
+      "arn:aws:states:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:stateMachine:AudioTranscribeStateMachine"
     ]
   }
 }

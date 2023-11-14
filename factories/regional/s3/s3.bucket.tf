@@ -14,6 +14,25 @@ resource "aws_s3_bucket" "audio_transcriber_bucket" {
 }
 
 ####################################
+## S3 Bucket - CORS Configuration
+####################################
+resource "aws_s3_bucket_cors_configuration" "example" {
+  bucket = aws_s3_bucket.audio_transcriber_bucket.id
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST"]
+    allowed_origins = ["https://${var.domain_name_prefix}.${var.domain_name}"]
+    max_age_seconds = 3000
+  }
+
+  cors_rule {
+    allowed_methods = ["GET"]
+    allowed_origins = ["*"]
+  }
+}
+
+####################################
 ## S3 Bucket Policy Creation
 ####################################
 

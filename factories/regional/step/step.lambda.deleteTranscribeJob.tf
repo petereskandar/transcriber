@@ -25,6 +25,15 @@ resource "aws_lambda_function" "transcriber_email_sender" {
   tags = var.tags
 }
 
+// create Lambda CloudWatch Log Group
+resource "aws_cloudwatch_log_group" "transcriber_email_sender_log_group" {
+  name              = "/aws/lambda/${aws_lambda_function.transcriber_email_sender.function_name}"
+  retention_in_days = 3
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
 data "archive_file" "transcriber_email_sender_code" {
   type        = "zip"
   source_dir  = "${path.module}/lambda_deleteTranscribeJob/"

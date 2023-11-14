@@ -1,18 +1,18 @@
 const AWS = require('aws-sdk');
 const https = require('https');
-var assert = require('assert');
+const assert = require('assert');
 
 exports.handler = async (event) => {
     
     // required params
-    var region = process.env.REGION;
-    var payload = event['Input']['Payload']
-    var transcriptFileUri = payload['TranscriptFileUri'];
-    var transcriptionJobName = payload['TranscriptionJobName'];
-    var transcriptionJobStatus = payload['TranscriptionJobStatus'];
-    var userEmail = payload['Email'];
+    let region = process.env.REGION;
+    let payload = event['Input']['Payload']
+    let transcriptFileUri = payload['TranscriptFileUri'];
+    let transcriptionJobName = payload['TranscriptionJobName'];
+    let transcriptionJobStatus = payload['TranscriptionJobStatus'];
+    let userEmail = payload['Email'];
     
-    var transcribe = new AWS.TranscribeService(region);
+    const transcribe = new AWS.TranscribeService(region);
     // sns notifications
     const ses = new AWS.SES({ region: region });
 
@@ -39,7 +39,7 @@ exports.handler = async (event) => {
     }) : { body: 'unable to process file' };
     
     // delete current job after completion
-    var params = {
+    const params = {
         TranscriptionJobName: transcriptionJobName
     }
     const response = await new Promise((resolve, reject) => {
