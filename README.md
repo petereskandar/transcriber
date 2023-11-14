@@ -106,7 +106,7 @@ The following inputs should be added to the [metadata.yml](metadata.yml)
   5. The Following Web Page will be shown :
      <!-- blank line --> 
      ![image](https://github.com/petereskandar/transcriber/assets/24432011/dc49de66-7dd7-4f87-b5bc-bcab7a1b6f11)
-  6. **Sign Up** and then **Sign In** to be able to upload your Audio Files "only .mp3 and .mp4 are the accepted formats"
+  6. **Sign Up** and then **Sign In** to be able to upload your Audio Files ***"only .mp3 and .mp4 are the accepted formats"***
   7. Transcription results will be delivered by default to the email address you used during the sign up process otherwise you can insert a different email address during the upload of the Audio File
  
 
