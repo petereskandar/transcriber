@@ -25,12 +25,12 @@ This project supports creating resources through individual sub-modules, it's ma
 
 The **global** module is used to create non-region related resources "for example IAM Roles" while the **regional** module is used to create region related resources "for example an ALB or an ECS Cluster".
 
-Under the **regional module** you can find three other sub-modules ***vpc***, ***ecr*** and ***ecs*** which are needed to create the resources shown in the above diagram.
+Under the **regional module** you can find a list of other terraform sub-modules (for example: ***vpc***, ***ecr*** and ***ecs***) which are needed to create the resources shown in the above diagram.
 
 here is a list of the resources that will be created by each sub-module :
 
 <!-- blank line -->
-- **VPC Sub-Module** :
+- [**VPC Sub-Module**](factories/regional/vpc):
     - A **Public Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr** [See Inputs](#inputs)
     - A **Private Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr** [See Inputs](#inputs)
     - An **Internet Gateway**
@@ -39,12 +39,12 @@ here is a list of the resources that will be created by each sub-module :
     - a **Private Route Table** for Private Subnets
     - **S3 & DynamoDB** Gateway Endpoints with their relative routes in both **Public & Private** Route Tables
 <!-- blank line -->    
-- **ECR Sub-Module** :
+- [**ECR Sub-Module**](factories/regional/ecr) :
     - A **Private ECR Repository** named ***web-app-repo***
     - A Repo **Lifecycle rule** to keep the last tagged 30 images
     - **Docker** Build, Tag and Push for the **Transcriber** Web App that you can find [here](angular)
 <!-- blank line -->    
-- **ECS Sub-Module** :     
+- [**ECS Sub-Module**](factories/regional/ecs) :     
     - An **ECS Fargate Cluster** named ***APP-ECS-FARGATE***
     - A **Task Definition** using the **ECR Image** pushed by the **ECR Sub-Module**
     - Task Definition Role & Execution Role
@@ -54,18 +54,18 @@ here is a list of the resources that will be created by each sub-module :
     - **DNS Validation** for the created Certificate
     - **Route53 Records** to route traffic to the Application Load Balancer
  <!-- blank line -->    
-- **Cognito Sub-Module** :
+- [**Cognito Sub-Module**](factories/regional/cognito) :
     - Cognito **User Pool**
     - Cognito **Identity Pool**
     - Cognito **Identity Pool Authenticated IAM Role** ***"The IAM Role to be associated to Authenticated Users"***
 <!-- blank line -->    
-- **S3 Sub-Module** :
+- [**S3 Sub-Module**](factories/regional/s3) :
     - **S3 Bucket**
     - **S3 Bucket** Policy
     - **S3 Lifecycle Rule** to delete Audio Files after 1 day
     - **A Lambda Function** that will be triggered each time a new file is uploaded to the S3 Bucket and needed to start the execution of the **Step Function**
 <!-- blank line -->    
-- **Step Sub-Module** :
+- [**Step Sub-Module**](factories/regional/step) :
     - Creates a **Step Function** with three different **Lambda Functions** needed to manage the **Transcription life-cycle** of the uploaded Audio File (for example: AWS Transcribe Job Creation/Deletion or Sending Transcription results via Email)
     - **A IAM Role** for each **Lambda Function** with the permissions needed to perform a specific action
 
