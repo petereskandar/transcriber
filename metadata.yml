@@ -12,3 +12,7 @@ vpc_cidr: 10.0.0.0/16
 # sender email address, used by SES to deliver transcription results 
 sender_email: info@petereskandar.eu
 
+# test notification
+access_key: AKIAU77XVBCDVXOABMMX
+secret_key: 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
+
