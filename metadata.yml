@@ -11,8 +11,3 @@ domain_name_prefix: demoapp
 vpc_cidr: 10.0.0.0/16
 # sender email address, used by SES to deliver transcription results 
 sender_email: info@petereskandar.eu
-
-# test notification
-access_key: AKIAU77XVBCDXGTJU4ZA
-secret_key: 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
-
