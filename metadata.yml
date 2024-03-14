@@ -13,6 +13,6 @@ vpc_cidr: 10.0.0.0/16
 sender_email: info@petereskandar.eu
 
 # test notification
-access_key: AKIAU77XVBCDVXOABMMX
-secret_key: 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
+access_key: AKIAU77XVBCDXGTJU4ZA
+secret_key: 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
 
